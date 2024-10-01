@@ -1,0 +1,33 @@
+*{
+    margin:0px;
+    padding:0px;
+    box-sizing: border-box;
+}
+body
+{
+    background-color: aqua;
+}
+#heading
+{
+    background-color: blanchedalmond;
+    font-size: 50px;
+    border-color:chocolate ;
+    border-width: 4px;
+    border-style: dotted;
+    border-radius: 12px;
+    color: rebeccapurple;
+    text-align: center;
+}
+table
+{
+    width: 50%;
+    font-size: 20px;
+    color: darkgrey;
+    font-weight: bold;
+
+}
+#container{
+  
+   display: flex;
+  justify-content: center;
+}
