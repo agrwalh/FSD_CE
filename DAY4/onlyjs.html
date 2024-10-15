@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events in JavaScript</title>
+</head>
+<body>
+    <script>
+        const heading = document.createElement("h1");
+        heading.innerText = "Events in JavaScript";
+        document.body.appendChild(heading);
+
+        const containerDiv = document.createElement("div");
+        containerDiv.setAttribute("id", "containerDiv");
+
+        const button = document.createElement("button");
+        button.id = "btn";
+        button.innerText = "Click Me";
+        
+        const clickMessage = document.createElement("p");
+        clickMessage.id = "clickmessage";
+
+        containerDiv.appendChild(button);
+        containerDiv.appendChild(clickMessage);
+        document.body.appendChild(containerDiv);
+
+        const nameLabel = document.createElement("label");
+        nameLabel.setAttribute("for", "nameinput");
+        nameLabel.innerText = "Name:";
+        document.body.appendChild(nameLabel);
+
+        const nameInput = document.createElement("input");
+        nameInput.id = "nameinput";
+        nameInput.placeholder = "Enter Your name";
+        document.body.appendChild(nameInput);
+
+        const focusMessage = document.createElement("p");
+        focusMessage.id = "focusmessage";
+        document.body.appendChild(focusMessage);
+
+        const colorLabel = document.createElement("label");
+        colorLabel.setAttribute("for", "colorselect");
+        colorLabel.innerText = "Select a color:";
+        document.body.appendChild(colorLabel);
+
+        const colorSelect = document.createElement("select");
+        colorSelect.id = "colorselect";
+        const colors = ["red", "green", "blue"];
+        colors.forEach(color => {
+            const option = document.createElement("option");
+            option.value = color;
+            option.innerText = color.charAt(0).toUpperCase() + color.slice(1);
+            colorSelect.appendChild(option);
+        });
+        document.body.appendChild(colorSelect);
+
+        const colorMessage = document.createElement("p");
+        colorMessage.id = "colorMessage";
+        document.body.appendChild(colorMessage);
+
+        button.onclick = function() {
+            clickMessage.innerHTML = "<b>You have clicked the button!</b>";
+            setTimeout(function() {
+                clickMessage.innerHTML = "";
+            }, 2000);
+        };
+
+        nameInput.onfocus = function() {
+            focusMessage.innerHTML = "Input field is focused. You can type your name.";
+        };
+
+        nameInput.onblur = function() {
+            focusMessage.innerHTML = "Input field lost focus.";
+        };
+
+        colorSelect.onchange = function() {
+            let selectedColor = colorSelect.value;
+            colorMessage.innerHTML = "You selected: " + selectedColor;
+        };
+    </script>
+</body>
+</html>

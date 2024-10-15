@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events in JavaScript</title>
+</head>
+<body>
+    <h1>Events in JavaScript</h1>
+    
+    <button id="btn">Click Me</button>
+    <p id="clickmessage"></p>
+
+    <label for="nameinput">Name:</label>
+    <input type="text" id="nameinput" placeholder="Enter Your name">
+    <p id="focusmessage"></p>
+
+    <label for="colorselect">Select a color:</label>
+    <select id="colorselect">
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+    </select>
+    <p id="colorMessage"></p>
+
+    <label for="typingInput">Type Something:</label>
+    <input type="text" id="typingInput" placeholder="Start typing">
+    <p id="typingMessage"></p>
+
+    <script>
+        document.getElementById("btn").onclick = function() {
+            document.getElementById("clickmessage").innerHTML = "<b>You have clicked the button!</b>";
+            setTimeout(function() {
+                document.getElementById("clickmessage").innerHTML = "";
+            }, 2000);
+        };
+
+        document.getElementById("nameinput").onfocus = function() {
+            document.getElementById("focusmessage").innerHTML = "Input field is focused. You can type your name.";
+        };
+
+        document.getElementById("nameinput").onblur = function() {
+            document.getElementById("focusmessage").innerHTML = "Input field lost focus.";
+        };
+
+        document.getElementById("colorselect").onchange = function() {
+            let selectedColor = document.getElementById("colorselect").value;
+            document.getElementById("colorMessage").innerHTML = "You selected: " + selectedColor;
+        };
+
+        document.getElementById("typingInput").onkeyup = function() {
+            let typedText = document.getElementById("typingInput").value;
+            document.getElementById("typingMessage").innerHTML = "You are typing: " + typedText;
+        };
+    </script>
+</body>
+</html>
