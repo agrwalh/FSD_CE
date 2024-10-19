@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Account</title>
+    <style>
+       
+        #details {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>GitHub Account</h2>
+        <div id="details">
+            <p id="name">undefined</p>
+            <p>Username: <span id="username">undefined</span></p>
+            <p>Bio: <span id="bio">undefined</span></p>
+            <p>Public Repos: <span id="repos">undefined</span></p>
+            <img id="avatar" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="Avatar">
+        </div>
+        <br>
+        <input type="text" id="input" placeholder="Enter GitHub username">
+        <input type="button" value="Search" onclick="getGitHubData()">
+    </div>
+
+    <script>
+        function getGitHubData() {
+            const username = document.getElementById('input').value;
+            const url = `https://api.github.com/users/${username}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('User not found');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('name').textContent = data.name || 'No name available';
+                    document.getElementById('username').textContent = data.login || 'undefined';
+                    document.getElementById('bio').textContent = data.bio || 'No bio available';
+                    document.getElementById('repos').textContent = data.public_repos || 'undefined';
+                    document.getElementById('avatar').src = data.avatar_url || 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
+
+                    
+                    document.getElementById('details').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error fetching data. Please try again.');
+                });
+        }
+    </script>
+</body>
+</html>
