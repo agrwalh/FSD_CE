@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+    <div id="container">
+        <table border="2px">
+            <form id="loginForm" onsubmit="return handleSubmit()">
+                <tr>
+                    <td colspan="2" id="heading">Login Form</td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" placeholder="Write your Name" id="name" required></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" placeholder="Write your Password" id="password" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Reset">
+                    </td>
+                </tr>
+            </form>
+        </table>
+
+   
+
+        <div class="content">
+            <div class="converter-container" id="converter">
+                <h2>Currency Converter</h2>
+                <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" placeholder="Enter amount" value="1">
+                    <select id="fromCurrency">
+                        <option value="USD">USD</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="toCurrency">Convert:</label>
+                    <input type="text" id="convertedAmount" readonly>
+                    <select id="toCurrency">
+                    </select>
+                </div>
+
+                <button onclick="convertCurrency()">Convert</button>
+
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        function handleSubmit() {
+       
+            const name = document.getElementById('name').value;
+            const password = document.getElementById('password').value;
+
+         
+            showConverter();
+
+            
+            return false;
+        }
+
+        function showConverter() {
+            document.getElementById('converter').style.display = 'block';
+        }
+
+        async function loadCurrencies() {
+            try {
+                const response = await fetch("https://api.exchangerate-api.com/v4/latest/USD");
+                const data = await response.json();
+                const currencyDropdown = document.getElementById('toCurrency');
+                
+                for (const currency in data.rates) {
+                    const option = document.createElement('option');
+                    option.value = currency;
+                    option.text = `${currency} - ${currency}`;
+                    currencyDropdown.add(option);
+                }
+            } catch (error) {
+                console.error("Error fetching currencies:", error);
+            }
+        }
+
+        loadCurrencies();
+
+        async function convertCurrency() {
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+            const amount = document.getElementById('amount').value;
+            const resultDiv = document.getElementById('result');
+            const convertedAmountField = document.getElementById('convertedAmount');
+
+            if (amount === "" || isNaN(amount)) {
+                resultDiv.innerText = "Please enter a valid amount.";
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`);
+                const data = await response.json();
+                
+                const rate = data.rates[toCurrency];
+                if (!rate) {
+                    resultDiv.innerText = `Conversion rate not available for ${toCurrency}.`;
+                    return;
+                }
+
+                const convertedAmount = (amount * rate).toFixed(2);
+                convertedAmountField.value = convertedAmount;
+            } catch (error) {
+                resultDiv.innerText = "Error fetching conversion rates. Please try again.";
+            }
+        }
+    </script>
+</body>
+</html>
