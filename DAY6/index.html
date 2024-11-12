@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React-CDN</title>
+</head>
+
+<body>
+    <div id="parent"></div>
+    
+    <script>
+        const parent = document.getElementById("parent");
+
+        
+        const h1 = document.createElement("h1");
+        h1.textContent = "Hello React!";
+        parent.appendChild(h1);
+        const ul = document.createElement("ul");
+
+        const item1 = document.createElement("li");
+        item1.textContent = "Item 1";
+        ul.appendChild(item1);
+
+        const item2 = document.createElement("li");
+        item2.textContent = "Item 2";
+        ul.appendChild(item2);
+
+       
+        parent.appendChild(ul);
+    </script>
+
+</body>
+
+</html>
