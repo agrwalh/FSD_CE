@@ -1,0 +1,13 @@
+.aa{
+    display:flex;
+    justify-content: space-around;
+    background-color: antiquewhite;
+}
+li{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+    color: brown;
+    font-size: 30px;
+}
